@@ -1,0 +1,33 @@
+#!/bin/bash
+
+if [[ "$#" -lt 1 ]]; then
+  echo "Need name of problem"
+  exit 1
+fi
+
+name="${1%%.*}"
+if [[ "${name}" == "" ]]; then
+  echo "No problem name found in \"${1}\" (expecting <prob>.<ext>)"
+  exit 1
+fi
+  
+ext="${1##*.}"
+if [[ ! "${1}" =~ .*\..* ]] || [[ "${ext}" == "" ]]; then
+  echo "No extension found in \"${1}\" (expecting <prob>.<ext>)"
+  exit 1
+fi
+
+mkdir "${name}"
+touch "${name}/${name}.${ext}"
+if [[ "${ext}" == "py" ]];  then
+  cat <<EOF >"${name}/${name}.${ext}"
+def main():
+  for CASE in range(1,int(input())+1):
+    print(f"Case #{CASE}: ")
+
+if __name__ == "__main__":
+  main()
+EOF
+fi
+touch "${name}/${name}.in"
+touch "${name}/${name}.out"
