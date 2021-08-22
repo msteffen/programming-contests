@@ -1,0 +1,43 @@
+#!/bin/bash
+
+set -ex
+
+# Default arg values
+TEST="true"
+CPP_ARGS=( "-D__LOCAL__" )
+
+eval "set -- $( getopt -o "n,c" "--" "${@:-}" )"
+while true; do
+  case "${1}" in
+    -n)
+      CPP_ARGS=()
+      shift 1
+      ;;
+    -c)
+      TEST="false"
+      shift 1
+      ;;
+    --)
+      shift
+      break
+      ;;
+  esac
+done
+
+prob="$(basename "${PWD}")"
+if [[ "${TEST}" == "true" ]] && [[ -f "${prob}.py" ]]; then
+  python3.7 "${prob}.py" <"${prob}.in" >"${prob}.actualout"
+elif [[ -f "${prob}.cpp" ]]; then
+  g++ --std=c++17 "${CPP_ARGS[@]}" "${prob}.cpp" -o "${prob}"
+  if [[ "${TEST}" == "true" ]]; then
+    ./"${prob}" <"${prob}.in" | tee "${prob}.actualout"
+  fi
+elif [[ -f "${prob}.cc" ]]; then
+  g++ --std=c++17 "${CPP_ARGS[@]}" "${prob}.cpp" -o "${prob}"
+  if [[ "${TEST}" == "true" ]]; then
+    ./"${prob}" <"${prob}.in" | tee "${prob}.actualout"
+  fi
+fi
+if [[ "${TEST}" == "true" ]]; then
+  diff -u "${prob}.actualout" "${prob}.out"
+fi
