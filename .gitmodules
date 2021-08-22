@@ -1,0 +1,6 @@
+[submodule "lib/kactl"]
+	path = lib/kactl
+	url = https://github.com/kth-competitive-programming/kactl.git
+[submodule "lib/ecnerwala"]
+	path = lib/ecnerwala
+	url = https://github.com/ecnerwala/icpc-book.git
