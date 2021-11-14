@@ -93,22 +93,6 @@ ostream& operator<<(ostream& o, const V<T>& v) {
   return o;
 }
 
-template <class T>
-ostream& operator<<(ostream& o, const set<T>& s) {
-  o << "{";
-  bool first(true);
-  RANGE(x,s) {
-    if (!first) {
-      o<<",";
-    } else {
-      first=false;
-    } 
-    o << i;
-  }
-  o << "}";
-  return o;
-}
-
 template <class S, class T>
 ostream& operator<<(ostream& o, const S<T>& s) {
   o << "{";
