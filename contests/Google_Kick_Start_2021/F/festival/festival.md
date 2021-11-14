@@ -1,0 +1,9 @@
+- festival for D days
+- N attractions, w/ happiness h[i] available on days [ s[i], e[i] ]
+- Choose day and K attractions
+- total_happiness = sum(max_K(attractions available on day d))
+- what is max total_happiness?
+- test case: D, N, K, then N lines with h[i], s[i], e[i]
+- h[i] <= 3e5
+- N, D <= 1000
+-

@@ -1,0 +1,6 @@
+- long street with *N* houses
+- street has length N, N houses evenly placed along it
+- Position h[j]-h[i] = |j-i|
+- Every homeowner takes their trash to the nearest trash bin (in front of some house to the left or right)
+- Figure out sum(trash_distance[i] | trash_distance(i) = distance 'i' has to walk to take out their trash)
+- 
