@@ -70,7 +70,7 @@ template<class T> using PR = pair<T,T>;
 #define pb push_back
 #define f first
 #define s second
-#define lb lower_bound // lb(l, r, x) = first n in [l,r) s.t. n >= x
+#define lb lower_bound // lb(l, r, x) = first n in [l,r) s.t. !(n < x) (n >= x)
 #define ub upper_bound // ub(l, r, x) = first n in [l,r) s.t. n > x
 
 template<class T> int lwb(V<T>& a, const T& b) { return int(lb(all(a),b)-bg(a)); }
