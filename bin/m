@@ -93,17 +93,17 @@ ostream& operator<<(ostream& o, const V<T>& v) {
   return o;
 }
 
-template <class S, class T>
-ostream& operator<<(ostream& o, const S<T>& s) {
+template <class T, template<class U> class S>
+ostream& operator<<(ostream& o, const S<T>& xs) {
   o << "{";
   bool first(true);
-  RANGE(x,s) {
+  RANGE(x,xs) {
     if (!first) {
       o<<",";
     } else {
       first=false;
     } 
-    o << i;
+    o << x;
   }
   o << "}";
   return o;
