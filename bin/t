@@ -2,11 +2,26 @@
 
 set -ex
 
+function usage {
+  cat <<EOF
+Usage:
+  t [-n] [-c]
+
+Args:
+  -n Don't print C++ debug print statements (dbg << "..."); set the __LOCAL__
+     preprocessor variable.
+ 
+  -c Compile only. Don't test the C++ code on prob.in
+
+  -h Help. Print this usage statement
+EOF
+}
+
 # Default arg values
 TEST="true"
 CPP_ARGS=( "-D__LOCAL__" )
 
-eval "set -- $( getopt -o "n,c" "--" "${@:-}" )"
+eval "set -- $( getopt -o "n,c,h" "--" "${@:-}" )"
 while true; do
   case "${1}" in
     -n)
@@ -16,6 +31,10 @@ while true; do
     -c)
       TEST="false"
       shift 1
+      ;;
+    -h)
+      usage
+      exit 0
       ;;
     --)
       shift
@@ -33,7 +52,7 @@ elif [[ -f "${prob}.cpp" ]]; then
     ./"${prob}" <"${prob}.in" | tee "${prob}.actualout"
   fi
 elif [[ -f "${prob}.cc" ]]; then
-  g++ --std=c++17 "${CPP_ARGS[@]}" "${prob}.cpp" -o "${prob}"
+  g++ --std=c++17 "${CPP_ARGS[@]}" "${prob}.cc" -o "${prob}"
   if [[ "${TEST}" == "true" ]]; then
     ./"${prob}" <"${prob}.in" | tee "${prob}.actualout"
   fi
